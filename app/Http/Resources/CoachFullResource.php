@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ClubResource extends JsonResource
+class CoachFullResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,8 +16,9 @@ class ClubResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'foundation_date' => $this->foundation_date,
+            'full_name' => $this->first_name . " " . $this->last_name . " " . $this->surname,
+            'birthdate' => $this->birthdate,
+            'clubs' => ClubResource::collection($this->clubs)
         ];
     }
 }

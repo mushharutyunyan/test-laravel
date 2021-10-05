@@ -40,6 +40,10 @@ class CoachRequest extends FormRequest
             $rules['surname'] = ['required', 'regex:/(^[A-Za-z0-9 ]+$)+/', 'min:2', 'max:25'];
             $rules['birthdate'] = 'required|date|date_format:Y-m-d|before:-20 years';
         }
+        if($this->exists('club_ids')) {
+            $rules['club_ids'] = 'required|array';
+            $rules['club_ids.*'] = 'required|numeric|exists:clubs,id';
+        }
         return $rules;
     }
 }

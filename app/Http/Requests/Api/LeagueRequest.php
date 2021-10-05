@@ -24,11 +24,14 @@ class LeagueRequest extends FormRequest
     public function rules()
     {
         $rules = [];
-
         if($this->id) {
             $rules['name'] = ['required', 'regex:/(^[A-Za-z0-9 ]+$)+/', 'min:2', 'max:25', 'unique:leagues,name,'.$this->id];
         } else {
             $rules['name'] = ['required', 'regex:/(^[A-Za-z0-9 ]+$)+/', 'min:2', 'max:25', 'unique:leagues,name'];
+        }
+        if($this->exists('club_ids')) {
+            $rules['club_ids'] = 'required|array';
+            $rules['club_ids.*'] = 'required|numeric|exists:clubs,id';
         }
         return $rules;
     }

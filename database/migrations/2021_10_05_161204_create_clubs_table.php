@@ -15,10 +15,8 @@ class CreateClubsTable extends Migration
     {
         Schema::create('clubs', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('league_id');
             $table->string('name');
             $table->date('foundation_date');
-            $table->foreign('league_id')->references('id')->on('leagues')->onDelete('cascade');
             $table->timestamps();
         });
     }

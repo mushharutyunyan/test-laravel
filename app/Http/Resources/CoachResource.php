@@ -14,6 +14,10 @@ class CoachResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'full_name' => $this->first_name . " " . $this->last_name . " " . $this->surname,
+            'birthdate' => $this->birthdate
+        ];
     }
 }

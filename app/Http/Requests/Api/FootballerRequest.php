@@ -44,6 +44,10 @@ class FootballerRequest extends FormRequest
             $rules['kicking_foot'] = 'required|string|in:right,left';
             $rules['transfer_cost'] = ['required','numeric','regex:/^(?=.+)(?:[1-9]\d*|0)?(?:\.\d+)?$/'];
         }
+        if($this->exists('club_ids')) {
+            $rules['club_ids'] = 'required|array';
+            $rules['club_ids.*'] = 'required|numeric|exists:clubs,id';
+        }
         return $rules;
     }
 }

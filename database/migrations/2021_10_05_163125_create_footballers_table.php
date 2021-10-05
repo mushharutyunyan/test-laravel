@@ -19,7 +19,7 @@ class CreateFootballersTable extends Migration
             $table->string('last_name');
             $table->string('surname');
             $table->date('birthdate');
-            $table->float('transfer_cost', 10, 2);
+            $table->float('transfer_cost', 12, 2);
             $table->enum('kicking_foot',['right','left']);
             $table->timestamps();
         });

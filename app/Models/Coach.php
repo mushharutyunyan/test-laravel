@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Coach extends Model
 {
     use HasFactory;
+
+    public function clubs()
+    {
+        return $this->belongsToMany(Club::class,'club_coaches');
+    }
 }

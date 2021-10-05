@@ -37,8 +37,8 @@ Route::group(['middleware' => 'auth:api'],function () {
 
             // Commands
             Route::post('/', [\App\Http\Controllers\Api\V1\Clubs\CommandController::class,'store']);
-            Route::patch('/{id}', [\App\Http\Controllers\Api\V1\Clubs\CommandController::class,'update'])->middleware(['league.exists']);
-            Route::delete('/{id}', [\App\Http\Controllers\Api\V1\Clubs\CommandController::class,'delete'])->middleware(['league.exists']);
+            Route::patch('/{id}', [\App\Http\Controllers\Api\V1\Clubs\CommandController::class,'update'])->middleware(['club.exists']);
+            Route::delete('/{id}', [\App\Http\Controllers\Api\V1\Clubs\CommandController::class,'delete'])->middleware(['club.exists']);
         });
 
         // COACHES

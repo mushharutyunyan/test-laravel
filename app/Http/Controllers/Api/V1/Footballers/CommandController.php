@@ -6,11 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\FootballerRequest;
 use App\Http\Resources\FootballerResource;
 use App\Http\Response\ClientResponse;
+use App\Http\Traits\GlobalFunctions;
 use App\Models\Footballer;
 use Illuminate\Http\Request;
 
 class CommandController extends Controller
 {
+    use GlobalFunctions;
     /**
      * @param FootballerRequest $request
      * @return FootballerResource
@@ -65,5 +67,8 @@ class CommandController extends Controller
         if(!$is_update)
             $footballer->birthdate = $data['birthdate'];
         $footballer->save();
+        if(isset($data['club_ids'])) {
+            $this->saveMany($footballer,'clubs',$data['club_ids']);
+        }
     }
 }

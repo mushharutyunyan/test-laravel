@@ -6,11 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\ClubRequest;
 use App\Http\Resources\ClubResource;
 use App\Http\Response\ClientResponse;
+use App\Http\Traits\GlobalFunctions;
 use App\Models\Club;
 use Illuminate\Http\Request;
 
 class CommandController extends Controller
 {
+    use GlobalFunctions;
     /**
      * @param ClubRequest $request
      * @return ClubResource
@@ -61,5 +63,14 @@ class CommandController extends Controller
         if(isset($data['foundation_date']))
         $club->foundation_date = $data['foundation_date'];
         $club->save();
+        if(isset($data['league_ids'])) {
+            $this->saveMany($club,'leagues',$data['league_ids']);
+        }
+        if(isset($data['club_ids'])) {
+            $this->saveMany($club,'clubs',$data['club_ids']);
+        }
+        if(isset($data['coach_ids'])) {
+            $this->saveMany($club,'coaches',$data['coach_ids']);
+        }
     }
 }

@@ -6,10 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\LeagueRequest;
 use App\Http\Resources\LeagueResource;
 use App\Http\Response\ClientResponse;
+use App\Http\Traits\GlobalFunctions;
 use App\Models\League;
 
 class CommandController extends Controller
 {
+    use GlobalFunctions;
     /**
      * @param LeagueRequest $request
      * @return LeagueResource
@@ -52,5 +54,10 @@ class CommandController extends Controller
     {
         $league->name = $data['name'];
         $league->save();
+        if(isset($data['club_ids'])) {
+            if(isset($data['club_ids'])) {
+                $this->saveMany($league,'clubs',$data['club_ids']);
+            }
+        }
     }
 }

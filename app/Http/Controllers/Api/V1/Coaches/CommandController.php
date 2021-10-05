@@ -6,11 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\CoachRequest;
 use App\Http\Resources\CoachResource;
 use App\Http\Response\ClientResponse;
+use App\Http\Traits\GlobalFunctions;
 use App\Models\Coach;
 use Illuminate\Http\Request;
 
 class CommandController extends Controller
 {
+    use GlobalFunctions;
     /**
      * @param CoachRequest $request
      * @return CoachResource
@@ -61,5 +63,8 @@ class CommandController extends Controller
         if(!$is_update)
         $coach->birthdate = $data['birthdate'];
         $coach->save();
+        if(isset($data['club_ids'])) {
+            $this->saveMany($coach,'clubs',$data['club_ids']);
+        }
     }
 }

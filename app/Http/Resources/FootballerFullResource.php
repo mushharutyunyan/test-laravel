@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class FootballerResource extends JsonResource
+class FootballerFullResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -21,7 +21,8 @@ class FootballerResource extends JsonResource
             'birthdate' => $this->birthdate,
             'age' => Carbon::parse($this->birthdate)->age,
             'transfer_cost' => $this->transfer_cost,
-            'kicking_foot' => $this->kicking_foot
+            'kicking_foot' => $this->kicking_foot,
+            'clubs' => ClubResource::collection($this->clubs)
         ];
     }
 }

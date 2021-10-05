@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Api\V1\Clubs;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ClubFullResource;
 use App\Http\Resources\ClubResource;
 use App\Models\Club;
+use App\Models\League;
 
 class QueryController extends Controller
 {
@@ -13,17 +15,17 @@ class QueryController extends Controller
      */
     public function index()
     {
-        $leagues = Club::orderBy('created_at', 'DESC')->paginate(20);
-        return ClubResource::collection($leagues);
+        $clubs = Club::orderBy('created_at', 'DESC')->paginate(20);
+        return ClubFullResource::collection($clubs);
     }
 
     /**
      * @param $id
-     * @return ClubResource
+     * @return ClubFullResource
      */
     public function show($id)
     {
-        return new ClubResource(Club::find($id));
+        return new ClubFullResource(Club::find($id));
     }
 
     /**
@@ -32,7 +34,7 @@ class QueryController extends Controller
      */
     public function byLeague($id)
     {
-        $leagues = Club::where('league_id',$id)->get();
-        return ClubResource::collection($leagues);
+        $clubs = League::find($id)->clubs;
+        return ClubFullResource::collection($clubs);
     }
 }
