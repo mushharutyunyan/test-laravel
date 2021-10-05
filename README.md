@@ -5,6 +5,9 @@ Clone this repository
 ```bash
 composer install
 ```
+```bash
+php artisan migrate --seed
+```
 - create .env file in route folder and change PostgreSQL database credentials
 -------
 ```bash
